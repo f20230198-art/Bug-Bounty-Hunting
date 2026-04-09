@@ -10,8 +10,8 @@ This is a **3-day practical workshop** on bug bounty hunting — the art of find
 
 ```
 Day 1 → The Hacker Mindset      (Recon, SQL Injection, XSS)
-Day 2 → Server-Side Attacks     (Path Traversal, Command Injection, SSRF, XXE, File Upload)
-Day 3 → Real World Hunting      (IDOR, JWT Attacks, Deserialization, LLM Prompt Injection, Bug Bounty Platforms)
+Day 2 → Server-Side Attacks     (Path Traversal, Command Injection, SSRF)
+Day 3 → Real-World Hunting      (IDOR, JWT Attacks, LLM Prompt Injection, Bug Bounty Platforms)
 ```
 
 ---
@@ -52,17 +52,16 @@ Need a super simple walkthrough? Use **[SIGNUP-GUIDE.md](./SIGNUP-GUIDE.md)**.
 | Day | Title | Topics | Link |
 |-----|-------|--------|------|
 | 1 | **The Hacker Mindset** | Recon, SQL Injection, XSS | [Day-1.md](./Day-1.md) |
-| 2 | **Server-Side Attacks** | Path Traversal, Cmd Injection, SSRF, XXE, File Upload | [Day-2.md](./Day-2.md) |
-| 3 | **Real World Hunting** | IDOR, JWT Attacks, Deserialization, LLM Prompt Injection, Bug Bounty Platforms | [Day-3.md](./Day-3.md) |
+| 2 | **Server-Side Attacks** | Path Traversal, Command Injection, SSRF | [Day-2.md](./Day-2.md) |
+| 3 | **Real-World Hunting** | IDOR, JWT Attacks, LLM Prompt Injection, Bug Bounty Platforms | [Day-3.md](./Day-3.md) |
 
 ### Quick References
 
 | Resource | Description | Link |
 |----------|-------------|------|
 | ✅ **Simple Sign-Up Guide** | Beginner-friendly account setup checklist | [SIGNUP-GUIDE.md](./SIGNUP-GUIDE.md) |
-| ⏱️ **90-Minute Delivery Plan** | What to teach live, what to move to homework | [WORKSHOP-90MIN-PLAN.md](./WORKSHOP-90MIN-PLAN.md) |
 | 🗂️ **Cheat Sheet** | All payloads, tools, and techniques on one page | [CHEATSHEET.md](./CHEATSHEET.md) |
-| 🗺️ **90-Day Roadmap** | Structured learning path after the workshop | [RESOURCES.md](./RESOURCES.md) |
+| 📦 **Extra Topics Pack** | Advanced/removed topics shared later | [EXTRA-TOPICS.md](./EXTRA-TOPICS.md) |
 | ❓ **FAQ** | Common questions about legality, tools, and bug bounty | [FAQ.md](./FAQ.md) |
 
 ---
@@ -78,19 +77,6 @@ Need a super simple walkthrough? Use **[SIGNUP-GUIDE.md](./SIGNUP-GUIDE.md)**.
 | [jwt.io](https://jwt.io) | Decode and inspect JWT tokens |
 | [CyberChef](https://gchq.github.io/CyberChef) | Encode/decode data (Base64, URL, hex, etc.) |
 | [crt.sh](https://crt.sh) | Find subdomains via certificate transparency |
-
----
-
-## 🎓 Keep Learning After the Workshop
-
-For a full **90-day structured learning roadmap**, curated YouTube channels, free courses, essential reading, and milestone tracking, see:
-
-👉 **[RESOURCES.md — Your 90-Day Bug Bounty Learning Roadmap](./RESOURCES.md)**
-
-Quick links:
-- [PortSwigger Academy](https://portswigger.net/web-security) — Complete every topic and lab
-- [PayloadsAllTheThings](https://github.com/swisskyrepo/PayloadsAllTheThings) — Massive payload collection
-- [OWASP Top 10](https://owasp.org/www-project-top-ten/) — Standard vulnerability list
 
 ---
 

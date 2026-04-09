@@ -62,9 +62,6 @@ The **OWASP Top 10** is a list of the most critical web application security ris
 
 ---
 
----
-
-<!-- ⏱️ INSTRUCTOR: ~40 min (15 min demo + 25 min hands-on) -->
 ## 🔍 Topic 1: Reconnaissance (Recon) 🟢 Easy
 
 ### What is Recon?
@@ -132,18 +129,23 @@ Know what a website is built with (WordPress? React? PHP?) to find known vulnera
 
 **Tool: Wappalyzer** — Free browser extension ([Chrome](https://chrome.google.com/webstore/detail/wappalyzer/gppongmhjkpfnbhagpmjfkannfbllamg) / [Firefox](https://addons.mozilla.org/en-US/firefox/addon/wappalyzer/))
 
-### 🧪 Hands-On: Try It Yourself!
+### 🧪 Core Questions
 
-> 1. Go to [crt.sh](https://crt.sh) and search `%.example.com` (replace with any company)
-> 2. Open Google and try: `site:github.com "password" filetype:env`
-> 3. Check any website on [web.archive.org](https://web.archive.org)
-> 4. Browse [shodan.io](https://shodan.io) and search for something interesting
+> **Question 1 (crt.sh):**
+> Go to [crt.sh](https://crt.sh) and search `%.example.com` (replace with any company).
+
+> **Question 2 (Google Dorking):**
+> Open Google and try: `site:github.com "password" filetype:env`.
+
+### ➕ Extra Questions for Practice
+
+1. **Wayback:** Check any website on [web.archive.org](https://web.archive.org) and find one old endpoint.
+2. **Shodan:** Browse [shodan.io](https://shodan.io) and search for one exposed service.
+3. **SecurityTrails:** Look up DNS history for one target domain.
+4. **Wappalyzer:** Identify the tech stack of two websites.
 
 ---
 
----
-
-<!-- ⏱️ INSTRUCTOR: ~90 min (30 min theory + 60 min labs) -->
 ## 💉 Topic 2: SQL Injection (SQLi) 🟡 Medium
 
 ### What is SQL Injection?
@@ -198,11 +200,11 @@ The `--` is a SQL comment — it **ignores everything after it**, including the 
 | `' OR '1'='1` | Another always-true condition |
 | `admin' --` | Logs in as admin, skips password |
 
-### 🧪 Hands-On Labs
+### 🧪 Core Questions — 3 Questions
 
-> **Do these labs in order. We'll walk through the first one together!**
+> **Do these 3 questions in order. We'll walk through Question 1 together.**
 
-#### Part A — PortSwigger Labs
+#### Questions 1-3 (PortSwigger)
 
 | # | Lab | What You'll Learn | Link |
 |---|-----|------------------|------|
@@ -246,7 +248,9 @@ Keep increasing until you get an error — that tells you the column count. Then
 (Match the number of NULLs to the column count)
 </details>
 
-#### Part B — OWASP Juice Shop (Bonus)
+### ➕ Extra Questions for Practice
+
+#### OWASP Juice Shop
 
 Open [OWASP Juice Shop](https://juice-shop.herokuapp.com) and try these:
 1. Go to the **login page** → type `' OR 1=1 --` as the email and anything as password
@@ -259,9 +263,6 @@ Open [OWASP Juice Shop](https://juice-shop.herokuapp.com) and try these:
 
 ---
 
----
-
-<!-- ⏱️ INSTRUCTOR: ~70 min (20 min theory + 50 min labs) -->
 ## 📜 Topic 3: Cross-Site Scripting (XSS) 🟡 Medium
 
 ### What is XSS?
@@ -334,25 +335,25 @@ Page shows: "You searched for: " ...and runs the script! 💥
 | `<svg onload=alert('XSS')>` | Another bypass technique |
 | `"><script>alert('XSS')</script>` | Breaking out of an HTML attribute |
 
-### 🧪 Hands-On Labs
+### 🧪 Core Questions
 
-> **Start with the Google XSS Game for a fun intro, then move to PortSwigger!**
-
-#### Part A — Google XSS Game (Fun & Visual) 🎮
-
-| Level | Challenge | Link |
-|-------|----------|------|
-| All Levels | Solve XSS challenges 1–6 | [🔗 Play Now](https://xss-game.appspot.com) |
-
-> Try to complete at least **levels 1–3**. Level 1 is a basic reflected XSS — just inject a `<script>` tag!
-
-#### Part B — PortSwigger Labs
+#### Questions 1-3 (PortSwigger)
 
 | # | Lab | What You'll Learn | Link |
 |---|-----|------------------|------|
 | 1 | **Reflected XSS into HTML context** | Inject a simple script via search | [🔗 Start Lab](https://portswigger.net/web-security/cross-site-scripting/reflected/lab-html-context-nothing-encoded) |
 | 2 | **Stored XSS into HTML context** | Post a comment with embedded JavaScript | [🔗 Start Lab](https://portswigger.net/web-security/cross-site-scripting/stored/lab-html-context-nothing-encoded) |
 | 3 | **DOM XSS in `document.write` sink** | Exploit client-side JavaScript that writes to the page | [🔗 Start Lab](https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-document-write-sink) |
+
+### ➕ Extra Questions for Practice
+
+#### Google XSS Game (Fun & Visual) 🎮
+
+| Level | Challenge | Link |
+|-------|----------|------|
+| All Levels | Solve XSS challenges 1–6 | [🔗 Play Now](https://xss-game.appspot.com) |
+
+Try to complete at least **levels 1-3** after class.
 
 <details>
 <summary>💡 Hint for Reflected XSS Lab</summary>
@@ -390,14 +391,12 @@ The `">` breaks out of the HTML attribute, and the script tag runs!
 
 ---
 
----
-
 ## ⚠️ Common Mistakes to Avoid
 
 | Mistake | Fix |
 |---------|-----|
 | Forgetting `--` at the end of SQLi payloads | The `--` comments out the rest of the SQL query — always include it |
-| Using `<script>alert('XSS')</script>` with smart quotes | Make sure you use **straight quotes** `'` not curly quotes `'` — copy from the cheat sheet! |
+| Using `<script>alert('XSS')</script>` with smart quotes | Make sure you use **straight quotes** (`'` and `"`) and avoid typographic quotes like `’` or `“` |
 | Not checking all input fields | Test **every** input: search bars, login forms, URL parameters, cookies, headers |
 | Giving up after one payload fails | Always try **multiple payloads** — different filters block different things |
 | Not reading the error messages | Error messages often reveal the **database type**, **file paths**, or **query structure** |
@@ -413,11 +412,11 @@ The `">` breaks out of the HTML attribute, and the script tag runs!
 ✅ XSS           — How to inject JavaScript into web pages
 ```
 
-### 🏠 Homework (Optional but Recommended)
+### 🏠 Homework
 
-1. Complete **1 more SQLi lab** on [PortSwigger](https://portswigger.net/web-security/sql-injection/lab-retrieve-hidden-data)
-2. Complete **1 more XSS lab** on [PortSwigger](https://portswigger.net/web-security/cross-site-scripting/reflected/lab-html-context-nothing-encoded)
-3. Try the [OWASP Juice Shop](https://juice-shop.herokuapp.com) — log in with `' OR 1=1 --` as the email
+1. Complete **2 extra recon questions** from the "Extra Questions for Practice" list.
+2. Try the [OWASP Juice Shop](https://juice-shop.herokuapp.com) SQLi challenge — log in with `' OR 1=1 --` as the email.
+3. Complete **Google XSS Game levels 1-3**: [xss-game.appspot.com](https://xss-game.appspot.com).
 
 ---
 

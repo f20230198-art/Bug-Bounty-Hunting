@@ -97,9 +97,9 @@ Try mobile hotspot for sign-up, then log in later from Wi-Fi.
 
 ---
 
-## Need Help in Class?
+## Need Help?
 
-Show your screen to the instructor and tell them exactly where you are stuck:
+When asking for help, share these 3 things:
 
 1. Which platform
 2. Which step number

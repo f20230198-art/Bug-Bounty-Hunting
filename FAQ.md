@@ -155,7 +155,7 @@ Once you have 3–5 valid findings, move to paid bounty programs.
 
 ### "I completed all the workshop labs. What next?"
 
-Check out the [Resources & Roadmap](./RESOURCES.md) for a structured 90-day plan!
+Continue with the [Extra Topics Pack](./EXTRA-TOPICS.md).
 
 ---
 
