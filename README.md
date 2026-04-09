@@ -11,7 +11,7 @@ This is a **3-day practical workshop** on bug bounty hunting — the art of find
 ```
 Day 1 → The Hacker Mindset      (Recon, SQL Injection, XSS)
 Day 2 → Server-Side Attacks     (Path Traversal, Command Injection, SSRF, XXE, File Upload)
-Day 3 → Real World Hunting      (IDOR, JWT Attacks, Deserialization, WordPress, Bug Bounty Platforms)
+Day 3 → Real World Hunting      (IDOR, JWT Attacks, Deserialization, LLM Prompt Injection, Bug Bounty Platforms)
 ```
 
 ---
@@ -35,6 +35,8 @@ Day 3 → Real World Hunting      (IDOR, JWT Attacks, Deserialization, WordPress
 | 2 | **TryHackMe** | Additional practice rooms | [Sign Up →](https://tryhackme.com/signup) |
 | 3 | **HackerOne** | Real bug bounty platform | [Sign Up →](https://hackerone.com/users/sign_up) |
 
+Need a super simple walkthrough? Use **[SIGNUP-GUIDE.md](./SIGNUP-GUIDE.md)**.
+
 ### What You Need
 
 - ✅ A laptop with a modern browser (Chrome or Firefox recommended)
@@ -51,12 +53,14 @@ Day 3 → Real World Hunting      (IDOR, JWT Attacks, Deserialization, WordPress
 |-----|-------|--------|------|
 | 1 | **The Hacker Mindset** | Recon, SQL Injection, XSS | [Day-1.md](./Day-1.md) |
 | 2 | **Server-Side Attacks** | Path Traversal, Cmd Injection, SSRF, XXE, File Upload | [Day-2.md](./Day-2.md) |
-| 3 | **Real World Hunting** | IDOR, JWT Attacks, Deserialization, WordPress, Bug Bounty Platforms | [Day-3.md](./Day-3.md) |
+| 3 | **Real World Hunting** | IDOR, JWT Attacks, Deserialization, LLM Prompt Injection, Bug Bounty Platforms | [Day-3.md](./Day-3.md) |
 
 ### Quick References
 
 | Resource | Description | Link |
 |----------|-------------|------|
+| ✅ **Simple Sign-Up Guide** | Beginner-friendly account setup checklist | [SIGNUP-GUIDE.md](./SIGNUP-GUIDE.md) |
+| ⏱️ **90-Minute Delivery Plan** | What to teach live, what to move to homework | [WORKSHOP-90MIN-PLAN.md](./WORKSHOP-90MIN-PLAN.md) |
 | 🗂️ **Cheat Sheet** | All payloads, tools, and techniques on one page | [CHEATSHEET.md](./CHEATSHEET.md) |
 | 🗺️ **90-Day Roadmap** | Structured learning path after the workshop | [RESOURCES.md](./RESOURCES.md) |
 | ❓ **FAQ** | Common questions about legality, tools, and bug bounty | [FAQ.md](./FAQ.md) |
