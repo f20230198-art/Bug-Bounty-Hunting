@@ -28,10 +28,10 @@ jobs:
           python-version: "3.12"
 
       - name: Install MkDocs
-        run: pip install mkdocs
+        run: python -m pip install mkdocs
 
       - name: Build site
-        run: mkdocs build
+        run: python -m mkdocs build -f mkdocs.yml
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
