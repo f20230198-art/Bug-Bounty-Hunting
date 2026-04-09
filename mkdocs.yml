@@ -2,7 +2,7 @@ site_name: Bug Bounty Hunting Workshop
 site_description: Rolling workshop notes for students
 site_url: https://f20230198-art.github.io/Bug-Bounty-Hunting/
 docs_dir: .
-site_dir: site
+site_dir: ../site
 
 theme:
   name: mkdocs
