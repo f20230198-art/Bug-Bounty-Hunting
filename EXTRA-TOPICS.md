@@ -1,4 +1,4 @@
-# 📦 Extra Topics Pack (Share Later)
+# 📦 Extra Topics Pack
 
 > This file contains advanced or removed topics from the main day-wise student handouts.
 
@@ -20,7 +20,7 @@ It includes:
 
 ---
 
-## 🔁 Extra Practice Moved from Day 1
+## 🔁 Extra Practice from Day 1
 
 ### SQL Injection Bonus (Juice Shop)
 
@@ -36,7 +36,7 @@ It includes:
 
 ---
 
-## 🔁 Extra Practice Moved from Day 2
+## 🔁 Extra Practice from Day 2
 
 | # | Question | What You'll Learn | Link |
 |---|----------|------------------|------|
