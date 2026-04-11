@@ -71,7 +71,6 @@ Need a super simple walkthrough? Use **[SIGNUP-GUIDE.md](./SIGNUP-GUIDE.md)**.
 | Tool | What It Does |
 |------|-------------|
 | [PortSwigger Web Security Academy](https://portswigger.net/web-security) | Best free hacking labs on the internet |
-| [OWASP Juice Shop](https://juice-shop.herokuapp.com) | A deliberately vulnerable web app to practice on |
 | [Google XSS Game](https://xss-game.appspot.com) | Fun XSS challenges in your browser |
 | [Hacker101 CTF](https://ctf.hacker101.com) | Capture-the-flag challenges from HackerOne |
 | [jwt.io](https://jwt.io) | Decode and inspect JWT tokens |

@@ -32,7 +32,7 @@ Don't panic! If you're testing within a bug bounty scope:
 
 ### "Can I get in trouble for doing the workshop labs?"
 
-**No.** All the platforms we use (PortSwigger, Juice Shop, TryHackMe, etc.) are **intentionally vulnerable** and designed for learning. You have explicit permission to "hack" them.
+**No.** All the platforms we use (PortSwigger, Hacker101 CTF, TryHackMe, etc.) are **intentionally vulnerable** and designed for learning. You have explicit permission to "hack" them.
 
 ---
 
@@ -69,7 +69,8 @@ Don't panic! If you're testing within a bug bounty scope:
 Burp Suite is an **HTTP proxy** — it sits between your browser and the website, letting you intercept, view, and modify every request. It's the industry-standard tool for web security testing.
 
 - **Community Edition** (free) is enough for learning
-- The workshop doesn't require it, but you'll want it within a month of practicing
+- The workshop doesn't require it: core labs can be solved with browser DevTools (Network tab + Console)
+- You'll still want Burp within a month of regular practice
 - [Download here](https://portswigger.net/burp/communitydownload)
 
 ---
@@ -151,7 +152,7 @@ Once you have 3–5 valid findings, move to paid bounty programs.
 - Make sure you're **logged in** to PortSwigger Academy
 - Some labs need to be **started** (click "Access the lab")
 - Labs run for a limited time — if it expires, just start it again
-- If the whole platform is down, use [OWASP Juice Shop](https://juice-shop.herokuapp.com) as a backup
+- If one platform is down, switch to another practice link from the same topic or use [Hacker101 CTF](https://ctf.hacker101.com) as backup
 
 ### "I completed all the workshop labs. What next?"
 

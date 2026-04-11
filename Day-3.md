@@ -377,20 +377,6 @@ Add server-side authorization check: verify that the authenticated user's `user_
 
 ---
 
-## ⚠️ Common Mistakes to Avoid
-
-| Mistake | Fix |
-|---------|-----|
-| Only changing IDs in the URL | Also check **POST body**, **cookies**, and **headers** for IDs |
-| Not testing JWT properly | Always decode at [jwt.io](https://jwt.io) first — understand the structure before modifying |
-| Trusting AI output as "safe by default" | Treat model output as untrusted input and validate before any action |
-| Skipping advanced topics forever | Practice them later from [EXTRA-TOPICS.md](./EXTRA-TOPICS.md) |
-| Submitting poorly written bug reports | A good report = more likely to be accepted. Follow the template above |
-| Testing out-of-scope targets | Always read the program's scope — testing out-of-scope targets can get you banned |
-| Giving up too early | The first bug is the hardest. Stay consistent, hunt 1–2 hours daily |
-
----
-
 ## 📝 Day 3 — Summary
 
 ```

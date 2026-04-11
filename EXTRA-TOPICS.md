@@ -22,11 +22,11 @@ It includes:
 
 ## 🔁 Extra Practice from Day 1
 
-### SQL Injection Bonus (Juice Shop)
+### SQL Injection Bonus
 
 | # | Question | Link |
 |---|----------|------|
-| 1 | Try SQLi login bypass in Juice Shop (`' OR 1=1 --`) | [🔗 Start Practice](https://juice-shop.herokuapp.com) |
+| 1 | SQLi login bypass (`administrator'--`) | [🔗 Start Practice](https://portswigger.net/web-security/sql-injection/lab-login-bypass) |
 
 ### XSS Bonus
 

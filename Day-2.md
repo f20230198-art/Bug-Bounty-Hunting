@@ -158,7 +158,13 @@ graph LR
 <details>
 <summary>💡 Hint for Question 1</summary>
 
-Open a product, click "Check Stock", and intercept the request. The `storeId` parameter is vulnerable. Append a command separator followed by `whoami` to the storeId value.
+No Burp is required for this lab. Browser DevTools is enough:
+
+1. Open any product and click **Check Stock** once.
+2. Press `F12` → go to **Network** → open the request that looks like `/product/stock`.
+3. Right-click it → **Copy** → **Copy as fetch**.
+4. Paste in **Console**, change `storeId=1` to `storeId=1;whoami` (or `%3Bwhoami`), then run.
+5. If vulnerable, the response includes command output (for example, the server username).
 </details>
 
 ### ➕ Extra Questions for Practice
@@ -170,7 +176,8 @@ Open a product, click "Check Stock", and intercept the request. The `storeId` pa
 <details>
 <summary>💡 Hint for Extra Question 1 (Blind)</summary>
 
-You won't see output directly. Instead, cause a **time delay** to prove the injection works. Use a ping command with a 10-second count. If the response takes ~10 seconds, you've confirmed command injection!
+You won't see output directly. Use the same **Network + Copy as fetch** method, but inject a time-delay payload (for example a ping with 10 count).
+Then watch request duration in the Network tab. If it consistently takes about 10 seconds longer, you've confirmed blind command injection.
 </details>
 
 ### 📖 Learn More
@@ -254,19 +261,6 @@ Same idea, but the admin panel is on a different internal machine. You need to s
 
 ### 📖 Learn More
 - [PortSwigger — SSRF](https://portswigger.net/web-security/ssrf)
-
----
-
-## ⚠️ Common Mistakes to Avoid
-
-| Mistake | Fix |
-|---------|-----|
-| Trying too many advanced labs at once | Start with the core questions first, then continue with extra practice |
-| Only trying `../` without encoding | Try URL-encoding (`%2e%2e%2f`), double-encoding, and `....//` variants |
-| Forgetting to try all command separators | Don't just try `;` — also try `|`, `&&`, `||`, and `$()` |
-| Using wrong IP for SSRF | `localhost` and `127.0.0.1` are treated differently by some filters — try both |
-| Not intercepting the actual request | Use browser DevTools Network tab to see the real parameters being sent |
-| Skipping advanced topics forever | Use [EXTRA-TOPICS.md](./EXTRA-TOPICS.md) after finishing core questions |
 
 ---
 

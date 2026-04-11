@@ -152,6 +152,19 @@ Know what a website is built with (WordPress? React? PHP?) to find known vulnera
 
 SQL (Structured Query Language) is the language used to talk to databases. When a website **takes your input and puts it directly into a database query**, you can manipulate that query.
 
+### Mini Syntax Primer
+
+For these labs, think in tiny SQL building blocks:
+
+| Syntax | Meaning | Example |
+|---|---|---|
+| `'` | Closes the current text value | `admin'` |
+| `OR` | Adds another condition to the `WHERE` clause | `' OR 1=1` |
+| `=` | Compares two values | `'1'='1'` |
+| `--` | Comments out the rest of the query | `--` |
+
+Quick read of common payloads: `administrator'--` = close username + ignore password check. `' OR 1=1 --` = close value + add always-true condition + ignore remaining query.
+
 ### How It Works
 
 Imagine a login form. Behind the scenes, the website runs:
@@ -250,12 +263,9 @@ Keep increasing until you get an error — that tells you the column count. Then
 
 ### ➕ Extra Questions for Practice
 
-#### OWASP Juice Shop
-
-Open [OWASP Juice Shop](https://juice-shop.herokuapp.com) and try these:
-1. Go to the **login page** → type `' OR 1=1 --` as the email and anything as password
-2. You should log in as the **admin**! 🎉
-3. Try to find the **admin panel** (hint: check the URL path `/administration`)
+1. Re-run the login bypass lab and write what each symbol in `administrator'--` does.
+2. In the UNION lab, test `ORDER BY 1--`, `ORDER BY 2--`, `ORDER BY 3--` until error, then note the final column count.
+3. Pick one more SQLi lab from PortSwigger Academy and solve it.
 
 ### 📖 Want to Learn More?
 - [PortSwigger — SQL Injection Explained](https://portswigger.net/web-security/sql-injection)
@@ -273,6 +283,19 @@ XSS is when an attacker **injects JavaScript code** into a web page that other u
 - 🔓 Hijack user accounts
 - 🎭 Deface the website
 - 🔀 Redirect users to malicious sites
+
+### Mini Syntax Primer
+
+Most XSS payloads are just basic HTML + JavaScript combined:
+
+| Syntax | Meaning | Example |
+|---|---|---|
+| `<tag>...</tag>` | Normal HTML element structure | `<script>alert(1)</script>` |
+| `onerror=` | Runs JavaScript when an element fails to load | `<img src=x onerror=alert(1)>` |
+| `function(value)` | Basic JavaScript function-call format | `alert(1)` |
+| `">` | Breaks out of an HTML attribute context | `"><script>alert(1)</script>` |
+
+Rule of thumb: first identify the input context (HTML body, attribute, or script), then use a payload that matches that context.
 
 ### The 3 Types of XSS
 
@@ -391,19 +414,6 @@ The `">` breaks out of the HTML attribute, and the script tag runs!
 
 ---
 
-## ⚠️ Common Mistakes to Avoid
-
-| Mistake | Fix |
-|---------|-----|
-| Forgetting `--` at the end of SQLi payloads | The `--` comments out the rest of the SQL query — always include it |
-| Using `<script>alert('XSS')</script>` with smart quotes | Make sure you use **straight quotes** (`'` and `"`) and avoid typographic quotes like `’` or `“` |
-| Not checking all input fields | Test **every** input: search bars, login forms, URL parameters, cookies, headers |
-| Giving up after one payload fails | Always try **multiple payloads** — different filters block different things |
-| Not reading the error messages | Error messages often reveal the **database type**, **file paths**, or **query structure** |
-| Skipping recon and jumping to attacks | Recon tells you **what** to test and **where** — never skip it |
-
----
-
 ## 📝 Day 1 — Summary
 
 ```
@@ -415,7 +425,7 @@ The `">` breaks out of the HTML attribute, and the script tag runs!
 ### 🏠 Homework
 
 1. Complete **2 extra recon questions** from the "Extra Questions for Practice" list.
-2. Try the [OWASP Juice Shop](https://juice-shop.herokuapp.com) SQLi challenge — log in with `' OR 1=1 --` as the email.
+2. Complete one extra SQLi lab on PortSwigger and write down the payload that solved it.
 3. Complete **Google XSS Game levels 1-3**: [xss-game.appspot.com](https://xss-game.appspot.com).
 
 ---
