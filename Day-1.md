@@ -390,9 +390,9 @@ The search box drops your input straight into the HTML with no sanitisation. The
 ```php
 echo "<p>You searched for: " . $_GET['q'] . "</p>";
 ```
-Browsers block `<script>` tags injected this way, so use:
+The page doesn't block anything, so the classic payload works directly:
 ```html
-<img src=x onerror=alert(1)>
+<script>alert(1)</script>
 ```
 Check the URL bar — your payload is right there in `?search=...`. That's the "reflected" part — it bounced off the server back into the page.
 </details>
