@@ -107,27 +107,33 @@ Use advanced Google searches to find exposed information.
 | `site:example.com intitle:"index of"` | Directory listings (exposed files!) |
 | `site:example.com ext:log \| ext:txt \| ext:conf` | Exposed config/log files |
 
-#### 3. Wayback Machine
-See **old versions** of a website — sometimes old pages have vulnerabilities that still exist.
+#### 3. Fuzzing (Linux Demo)
+Fuzzing means automatically sending lots of words/paths at a target to discover **hidden pages, directories, and files** that aren't linked anywhere.
 
-**Tool:** [https://web.archive.org](https://web.archive.org)
+> **Linux only** — this is a live demo, you don't need to run it yourself today.
 
-#### 4. Shodan — The Hacker's Search Engine
-Searches for **internet-connected devices** — servers, webcams, databases, IoT devices. You can find exposed services that shouldn't be public.
+**Tool: ffuf** — fast web fuzzer
 
-**Tool:** [https://shodan.io](https://shodan.io) (free account for basic searches)
+```bash
+# Find hidden directories on a target
+ffuf -w /usr/share/wordlists/dirb/common.txt -u https://example.com/FUZZ
 
-Try searching: `apache city:"New York"` or `port:3306 country:US` (exposed MySQL databases!)
+# Find hidden files with extensions
+ffuf -w /usr/share/wordlists/dirb/common.txt -u https://example.com/FUZZ -e .php,.html,.txt
+```
 
-#### 5. SecurityTrails
-Get detailed **DNS records, historical data, and associated domains** for any target.
+What happens: ffuf replaces `FUZZ` with every word in the wordlist and checks if the page exists. A `200 OK` response means the page is real — you've found something hidden!
 
-**Tool:** [https://securitytrails.com](https://securitytrails.com) (free account available)
+**Common finds:** `/admin`, `/backup`, `/config.php`, `/.env`, `/api/v1`
 
-#### 6. Technology Detection
-Know what a website is built with (WordPress? React? PHP?) to find known vulnerabilities.
+#### More Tools
 
-**Tool: Wappalyzer** — Free browser extension ([Chrome](https://chrome.google.com/webstore/detail/wappalyzer/gppongmhjkpfnbhagpmjfkannfbllamg) / [Firefox](https://addons.mozilla.org/en-US/firefox/addon/wappalyzer/))
+| Tool | Description |
+|------|-------------|
+| web.archive.org | [Wayback Machine](https://web.archive.org) (old site snapshots) |
+| shodan.io | [Shodan](https://shodan.io) (internet-connected device search) |
+| securitytrails.com | [SecurityTrails](https://securitytrails.com) (DNS & domain history) |
+| Wappalyzer | [Wappalyzer](https://www.wappalyzer.com) (browser tech stack detector) |
 
 ### 🧪 Core Questions
 
@@ -141,8 +147,7 @@ Know what a website is built with (WordPress? React? PHP?) to find known vulnera
 
 1. **Wayback:** Check any website on [web.archive.org](https://web.archive.org) and find one old endpoint.
 2. **Shodan:** Browse [shodan.io](https://shodan.io) and search for one exposed service.
-3. **SecurityTrails:** Look up DNS history for one target domain.
-4. **Wappalyzer:** Identify the tech stack of two websites.
+3. **Wappalyzer:** Identify the tech stack of two websites.
 
 ---
 
