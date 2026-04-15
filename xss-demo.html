@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Search</title>
+</head>
+<body>
+
+<h2>Search</h2>
+
+<form onsubmit="doSearch(event)">
+  <p>
+    <label>Search: <input type="text" id="query" oninput="updateCode()" /></label>
+  </p>
+  <p>
+    <button type="submit">Search</button>
+  </p>
+</form>
+
+<p>Note: browsers block &lt;script&gt; tags via innerHTML. Use <code>&lt;img src=x onerror=alert(1)&gt;</code> instead — it works.</p>
+
+<p><strong>Result:</strong></p>
+<div id="result"></div>
+
+<hr>
+
+<p><strong>What the browser rendered (innerHTML):</strong></p>
+<pre id="html-view">&lt;div id="result"&gt;&lt;/div&gt;</pre>
+
+<p><strong>Backend HTML being built (what the server sends):</strong></p>
+<pre id="code-view">echo "&lt;p&gt;You searched for: &lt;/p&gt;";</pre>
+
+<script>
+  function updateCode() {
+    const input = document.getElementById('query').value;
+
+    document.getElementById('code-view').textContent =
+      `echo "<p>You searched for: ${input}</p>";`;
+
+    document.getElementById('html-view').textContent =
+      `<div id="result"><p>You searched for: ${input}</p></div>`;
+  }
+
+  function doSearch(e) {
+    e.preventDefault();
+    const input = document.getElementById('query').value;
+    document.getElementById('result').innerHTML = '<p>You searched for: ' + input + '</p>';
+    updateCode();
+  }
+</script>
+
+</body>
+</html>

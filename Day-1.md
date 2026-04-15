@@ -220,7 +220,7 @@ The `--` is a SQL comment — it **ignores everything after it**, including the 
 
 ### 🧪 Core Questions — 3 Questions
 
-> **Do these 3 questions in order. We'll walk through Question 1 together.**
+> **Do these 3 questions in order. We'll walk through Questions together.**
 
 #### Questions 1-3 (PortSwigger)
 
@@ -386,31 +386,43 @@ Try to complete at least **levels 1-3** after class.
 <details>
 <summary>💡 Hint for Reflected XSS Lab</summary>
 
-Use the search box and type:
-```html
-<script>alert(1)</script>
+The search box drops your input straight into the HTML with no sanitisation. The server is doing something like:
+```php
+echo "<p>You searched for: " . $_GET['q'] . "</p>";
 ```
-If an alert box pops up, you've found the XSS!
+Browsers block `<script>` tags injected this way, so use:
+```html
+<img src=x onerror=alert(1)>
+```
+Check the URL bar — your payload is right there in `?search=...`. That's the "reflected" part — it bounced off the server back into the page.
 </details>
 
 <details>
 <summary>💡 Hint for Stored XSS Lab</summary>
 
-Go to a blog post and leave a comment. In the comment body, type:
+Go to a blog post and leave a comment. The server saves your comment to a database and on every page load does:
+```php
+echo "<p>" . $row['comment'] . "</p>";
+```
+Because the page loads fresh (not injected via innerHTML), `<script>` tags actually execute here:
 ```html
 <script>alert(1)</script>
 ```
-When anyone views the post, the alert will fire.
+After posting, reload the page — the alert fires on load. Every visitor who opens the page gets hit, not just you.
 </details>
 
 <details>
 <summary>💡 Hint for DOM XSS Lab</summary>
 
-The search function uses `document.write` with the search query from the URL. Try searching for:
+This one never touches the server. The page has client-side JavaScript doing:
+```javascript
+document.write('<img src="/search?term=' + query + '">');
+```
+Your input goes into `document.write` — which does execute `<script>` tags. Break out of the `src` attribute first, then inject:
 ```html
 "><script>alert(1)</script>
 ```
-The `">` breaks out of the HTML attribute, and the script tag runs!
+Open DevTools → Sources, find the JS file, and look for the `document.write` line — the browser itself is running the vulnerable code.
 </details>
 
 ### 📖 Want to Learn More?
