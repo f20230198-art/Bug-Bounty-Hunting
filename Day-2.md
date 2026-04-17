@@ -56,20 +56,20 @@ Server reads: /var/www/images/../../../etc/passwd
 │                                                                  │
 │   /                                                              │
 │   ├── etc/                                                       │
-│   │   └── passwd         ◄─── 🎯 Attacker wants this!           │
+│   │   └── passwd         ◄─── Attacker wants this!               │
 │   ├── var/                                                       │
 │   │   └── www/                                                   │
-│   │       └── images/    ◄─── 📂 Website reads from here         │
+│   │       └── images/    ◄─── Website reads from here            │
 │   │           ├── cat.jpg                                        │
 │   │           └── dog.jpg                                        │
 │   └── ...                                                        │
 │                                                                  │
 │   ../../../etc/passwd                                            │
-│   ─┬─ ─┬─ ─┬─                                                   │
+│   ─┬─ ─┬─ ─┬─                                                    │
 │    │   │   └── Go up from images/ to www/                        │
-│    │   └────── Go up from www/ to var/                            │
-│    └────────── Go up from var/ to /                               │
-│                Then go into etc/ and read passwd                  │
+│    │   └────── Go up from www/ to var/                           │
+│    └────────── Go up from var/ to /                              │
+│                Then go into etc/ and read passwd                 │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -230,17 +230,17 @@ You ──► Server ──► 169.254.169.254      (reading cloud credentials!)
 │   Internet                 │           Internal Network          │
 │   ─────────                │          ─────────────────          │
 │                            │                                     │
-│   ┌───────┐    request     │  ┌─────────┐     ┌──────────┐     │
-│   │  You  │ ─────────────► │  │  Web    │ ──► │  Admin   │     │
-│   │       │    "check      │  │  Server │     │  Panel   │     │
-│   └───────┘   this URL"    │  └─────────┘     │ (secret!)│     │
-│                            │       │          └──────────┘     │
-│   🔒 You can't access     │       │                            │
-│   the admin panel directly │       ▼                            │
-│                            │  ┌──────────┐                      │
-│   But the SERVER can! ──── │  │ Database │                      │
-│   And you control what     │  │ (secret!)│                      │
-│   URL it visits! 😈        │  └──────────┘                      │
+│   ┌───────┐    request     │  ┌─────────┐     ┌──────────┐       │
+│   │  You  │ ─────────────► │  │  Web    │ ──► │  Admin   │       │
+│   │       │    "check      │  │  Server │     │  Panel   │       │
+│   └───────┘   this URL"    │  └─────────┘     │ (secret!)│       │
+│                            │       │          └──────────┘       │
+│       You can't access     │       │                             │
+│   the admin panel directly │       ▼                             │
+│                            │  ┌──────────┐                       │
+│   But the SERVER can! ──── │  │ Database │                       │
+│   And you control what     │  │ (secret!)│                       │
+│   URL it visits!           │  └──────────┘                       │
 └──────────────────────────────────────────────────────────────────┘
 ```
 

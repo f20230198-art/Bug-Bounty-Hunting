@@ -110,7 +110,7 @@ Use advanced Google searches to find exposed information.
 #### 3. Fuzzing (Linux Demo)
 Fuzzing means automatically sending lots of words/paths at a target to discover **hidden pages, directories, and files** that aren't linked anywhere.
 
-> **Linux only** — this is a live demo, you don't need to run it yourself today.
+> **Linux only**
 
 **Tool: ffuf** — fast web fuzzer
 
@@ -191,21 +191,21 @@ The `--` is a SQL comment — it **ignores everything after it**, including the 
 │                    SQL INJECTION — VISUALIZED                    │
 │                                                                  │
 │   Normal Login:                                                  │
-│   ┌──────────────┐     ┌──────────────┐     ┌──────────────┐   │
-│   │  Username:   │     │   SELECT *   │     │   ❌ Login   │   │
-│   │  john        │ ──► │   WHERE      │ ──► │   Failed     │   │
-│   │  Password:   │     │   user='john'│     │   (wrong pw) │   │
-│   │  wrong123    │     │   AND pw=    │     │              │   │
-│   └──────────────┘     │   'wrong123' │     └──────────────┘   │
-│                        └──────────────┘                         │
+│   ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     │
+│   │  Username:   │     │   SELECT *   │     │    Login     │     │
+│   │  john        │ ──► │   WHERE      │ ──► │   Failed     │     │
+│   │  Password:   │     │   user='john'│     │   (wrong pw) │     │
+│   │  wrong123    │     │   AND pw=    │     │              │     │
+│   └──────────────┘     │   'wrong123' │     └──────────────┘     │
+│                        └──────────────┘                          │
 │                                                                  │
 │   Injected Login:                                                │
-│   ┌──────────────┐     ┌──────────────┐     ┌──────────────┐   │
-│   │  Username:   │     │   SELECT *   │     │   ✅ Login   │   │
-│   │  admin' --   │ ──► │   WHERE      │ ──► │   Success!   │   │
-│   │  Password:   │     │   user=      │     │   (password  │   │
-│   │  anything    │     │   'admin'    │     │    skipped!) │   │
-│   └──────────────┘     └──────────────┘     └──────────────┘   │
+│   ┌──────────────┐     ┌──────────────┐     ┌──────────────┐     │
+│   │  Username:   │     │   SELECT *   │     │    Login     │     │
+│   │  admin' --   │ ──► │   WHERE      │ ──► │   Success!   │     │
+│   │  Password:   │     │   user=      │     │   (password  │     │
+│   │  anything    │     │   'admin'    │     │    skipped!) │     │
+│   └──────────────┘     └──────────────┘     └──────────────┘     │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -339,22 +339,22 @@ Page shows: "You searched for: " ...and runs the script! 💥
 │                    XSS ATTACK FLOW                               │
 │                                                                  │
 │   Attacker                  Victim                   Server      │
-│   ┌───────┐                ┌───────┐               ┌───────┐   │
-│   │Crafts │  sends link   │Clicks │   request     │Returns│   │
-│   │evil   │ ────────────► │the    │ ────────────► │page + │   │
-│   │link   │               │link   │               │script │   │
-│   └───────┘               └───────┘               └───┬───┘   │
-│                                │                       │        │
-│                                │◄──────────────────────┘        │
+│   ┌───────┐               ┌───────┐               ┌───────┐      │
+│   │Crafts │  sends link   │Clicks │   request     │Returns│      │
+│   │evil   │ ────────────► │the    │ ────────────► │page + │      │
+│   │link   │               │link   │               │script │      │
+│   └───────┘               └───────┘               └───┬───┘      │
+│                                │                       │         │
+│                                │◄──────────────────────┘         │
 │                                │  page loads with                │
 │                                │  attacker's JavaScript          │
 │                                │                                 │
 │                                ▼                                 │
-│                           ┌─────────┐                           │
-│                           │ Cookie  │                           │
-│                           │ Stolen! │                           │
-│                           │ 🍪 → 😈 │                           │
-│                           └─────────┘                           │
+│                           ┌─────────┐                            │
+│                           │ Cookie  │                            │
+│                           │ Stolen! │                            │
+│                           │ 🍪 → 😈│                            │
+│                           └─────────┘                            │
 └──────────────────────────────────────────────────────────────────┘
 ```
 

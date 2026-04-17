@@ -175,7 +175,7 @@ If even one is false — CSRF usually fails.
 | **Custom headers** | e.g., `X-Requested-With` — can't be set cross-origin without CORS |
 | **Double-submit cookie** | Token sent in cookie AND request body — server compares them |
 
-### 🎬 2-Minute Demo
+### 🎬 2-Minute Check
 
 Open DevTools on any site you're logged into → Network tab → trigger a "save" or "update" action. Look at the request. If there's no `csrf_token`, no `X-CSRF-Token` header, and the cookie is `SameSite=None` — it's a CSRF candidate.
 
@@ -229,36 +229,36 @@ A JWT has **3 parts** separated by dots:
 
 ```
 eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwicm9sZSI6InVzZXIifQ.signature
-╰──────── Header ────────╯╰────────────── Payload ──────────────╯╰─ Signature ─╯
+╰────── Header ─────╯╰────────────── Payload ─────────────╯╰signature╯
 ```
 
 Each part is **Base64URL-encoded**. Decode them:
 
 ```
-Header:    {"alg": "HS256"}           ← Which algorithm is used
+Header:    {"alg": "HS256"}                 ← Which algorithm is used
 Payload:   {"sub": "user", "role": "user"}  ← WHO you are
 Signature: (cryptographic verification)     ← Proves it wasn't tampered
 ```
 
 ```
 ┌──────────────────────────────────────────────────────────────────┐
-│                    JWT ATTACK — VISUALIZED                        │
+│                    JWT ATTACK — VISUALIZED                       │
 │                                                                  │
 │   Normal Flow:                                                   │
-│   ┌────────┐  login   ┌────────┐  JWT token  ┌────────┐        │
-│   │  You   │ ───────► │ Server │ ──────────► │  You   │        │
-│   │        │          │        │  role:user   │ (user) │        │
-│   └────────┘          └────────┘             └────────┘        │
+│   ┌────────┐  login   ┌────────┐  JWT token  ┌────────┐          │
+│   │  You   │ ───────► │ Server │ ──────────► │  You   │          │
+│   │        │          │        │  role:user   │ (user) │         │
+│   └────────┘          └────────┘             └────────┘          │
 │                                                                  │
 │   Attack — Change "none" algorithm:                              │
-│   ┌────────┐  modified JWT  ┌────────┐                          │
-│   │  You   │ ─────────────► │ Server │                          │
-│   │        │  alg: "none"   │ skips  │                          │
-│   │        │  role: "admin" │ verify!│                          │
-│   └────────┘                └───┬────┘                          │
+│   ┌────────┐  modified JWT  ┌────────┐                           │
+│   │  You   │ ─────────────► │ Server │                           │
+│   │        │  alg: "none"   │ skips  │                           │
+│   │        │  role: "admin" │ verify!│                           │
+│   └────────┘                └───┬────┘                           │
 │                                 │                                │
 │                                 ▼                                │
-│                          ✅ Admin Access!                        │
+│                            Admin Access!                         │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -406,27 +406,27 @@ A great report has 5 parts:
 ┌──────────────────────────────────────────────────────────────────┐
 │                   ANATOMY OF A BUG REPORT                        │
 │                                                                  │
-│   1. 📌 TITLE                                                   │
-│      Clear, specific — e.g., "IDOR allows any user              │
-│      to view other users' invoices via /api/invoices/{id}"      │
+│   1. TITLE                                                       │
+│      Clear, specific — e.g., "IDOR allows any user               │
+│      to view other users' invoices via /api/invoices/{id}"       │
 │                                                                  │
-│   2. 📝 DESCRIPTION                                             │
+│   2. DESCRIPTION                                                 │
 │      What the vulnerability is and where it exists               │
 │                                                                  │
-│   3. 🔄 STEPS TO REPRODUCE                                      │
+│   3. STEPS TO REPRODUCE                                          │
 │      Step-by-step instructions anyone can follow:                │
-│      1. Log in as user A                                        │
-│      2. Navigate to /api/invoices/1001                          │
-│      3. Change 1001 to 1002                                     │
+│      1. Log in as user A                                         │
+│      2. Navigate to /api/invoices/1001                           │
+│      3. Change 1001 to 1002                                      │
 │      4. Observe: User B's invoice is returned                    │
 │                                                                  │
-│   4. 💥 IMPACT                                                  │
-│      What an attacker could do with this                        │
-│      (e.g., "Access any user's financial data")                 │
+│   4. IMPACT                                                      │
+│      What an attacker could do with this                         │
+│      (e.g., "Access any user's financial data")                  │
 │                                                                  │
-│   5. 🛠️ SUGGESTED FIX                                           │
-│      Optional but appreciated                                   │
-│      (e.g., "Add authorization check on /api/invoices/{id}")    │
+│   5. SUGGESTED FIX                                               │
+│      Optional but appreciated                                    │
+│      (e.g., "Add authorization check on /api/invoices/{id}")     │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -495,14 +495,14 @@ Add server-side authorization check: verify that the authenticated user's `user_
 ```
 ┌──────────────────────────────────────────────────────────────────┐
 │                                                                  │
-│   🎉  CONGRATULATIONS!  🎉                                      │
+│   ##  CONGRATULATIONS! ##                                        │
 │                                                                  │
 │   You've completed the Bug Bounty Hunting Workshop!              │
 │                                                                  │
 │   Over 3 days you learned:                                       │
-│   ✅ Day 1: Recon, SQL Injection, XSS                            │
-│   ✅ Day 2: Path Traversal, Command Injection, SSRF              │
-│   ✅ Day 3: IDOR, CSRF, JWT, LLM Security, Hunting               │
+│   -> Day 1: Recon, SQL Injection, XSS                            │
+│   -> Day 2: Path Traversal, Command Injection, SSRF              │
+│   -> Day 3: IDOR, CSRF, JWT, LLM Security, Hunting               │
 │                                                                  │
 │   What's next?                                                   │
 │   → Follow the Future Roadmap (./Future-Roadmap.md)              │
@@ -513,7 +513,7 @@ Add server-side authorization check: verify that the authenticated user's `user_
 │                                                                  │
 │   "The only way to learn security is by breaking things."        │
 │                                                                  │
-│   Happy Hunting! 🐛🔍                                            │
+│   Happy Hunting!                                                 │
 │                                                                  │
 └──────────────────────────────────────────────────────────────────┘
 ```
@@ -521,7 +521,5 @@ Add server-side authorization check: verify that the authenticated user's `user_
 ---
 
 <p align="center">
-  <a href="./Future-Roadmap.md"><b>Next → Follow the Future Roadmap</b></a>
-  <br><br>
-  <a href="./README.md">← Back to Home</a>
+  <a href="./README.md"><b>← Back to Home</b></a>
 </p>
