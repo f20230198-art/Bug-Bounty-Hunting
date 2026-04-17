@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MegaCorp</title>
+  <style>
+    body { background: #fff; color: #000; font-family: Arial, sans-serif; margin: 40px; }
+    a { color: blue; margin-right: 15px; }
+    .secret { color: red; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<h1>MegaCorp</h1>
+<nav>
+  <a href="?file=home">Home</a>
+  <a href="?file=about">About</a>
+  <a href="?file=products">Products</a>
+  <a href="?file=team">Team</a>
+  <a href="?file=careers">Careers</a>
+  <a href="?file=blog">Blog</a>
+  <a href="?file=contact">Contact</a>
+</nav>
+<hr>
+
+<div id="content"></div>
+
+<script>
+var foundPassword = false;
+
+var pages = {
+  "home":
+    '<h2>Welcome to MegaCorp</h2>'
+    + '<p>Browse our pages using the links above.</p>'
+    + '<hr><h3>Admin Login</h3>'
+    + '<p>Username: <input type="text" id="user" /></p>'
+    + '<p>Password: <input type="password" id="pass" /></p>'
+    + '<button onclick="tryLogin()">Login</button>'
+    + '<p id="login-msg"></p>',
+
+  "about":
+    '<h2>About MegaCorp</h2>'
+    + '<p>MegaCorp was founded in 2019 by Raj Sharma and Priya Nair with a simple mission: build software that small businesses actually want to use.</p>'
+    + '<p>What started as a 3-person team in a Koramangala co-working space is now a 250-person company serving 10,000+ customers across India and Southeast Asia.</p>'
+    + '<p><b>Headquarters:</b> Bangalore, India</p>'
+    + '<p><b>Founded:</b> 2019</p>'
+    + '<p><b>Funding:</b> Series B ($18M, 2023)</p>',
+
+  "products":
+    '<h2>Our Products</h2>'
+    + '<h3>MegaWidget Pro - $49.99/mo</h3>'
+    + '<p>Full-featured dashboard, analytics, team collaboration, API access. Best for growing teams.</p>'
+    + '<h3>MegaWidget Lite - $19.99/mo</h3>'
+    + '<p>Essential features for freelancers and solo founders. 5 projects, 1GB storage.</p>'
+    + '<h3>MegaWidget Enterprise - Contact Sales</h3>'
+    + '<p>Custom deployment, SLA, dedicated support, SSO. For companies with 500+ employees.</p>'
+    + '<hr>'
+    + '<p><i>All plans include 14-day free trial. No credit card required.</i></p>',
+
+  "team":
+    '<h2>Our Team</h2>'
+    + '<p><b>Raj Sharma</b> - CEO & Co-Founder. Previously at Flipkart. IIT Bombay CS 2014.</p>'
+    + '<p><b>Priya Nair</b> - CTO & Co-Founder. Previously at Amazon. IIIT Hyderabad 2013.</p>'
+    + '<p><b>Arjun Mehta</b> - VP Engineering. 12 years at Infosys and Google.</p>'
+    + '<p><b>Sneha Reddy</b> - Head of Design. Ex-Swiggy, Ex-Ola.</p>'
+    + '<p><b>Vikram Das</b> - Lead DevOps. AWS certified. Manages all infrastructure.</p>'
+    + '<hr>'
+    + '<p>We are hiring! Check our <a href="?file=careers">careers page</a>.</p>',
+
+  "careers":
+    '<h2>Careers at MegaCorp</h2>'
+    + '<p>We are growing fast and looking for talented people to join us.</p>'
+    + '<h3>Open Positions</h3>'
+    + '<p><b>Senior Backend Engineer</b> - Bangalore - Full time - Python, PostgreSQL, AWS</p>'
+    + '<p><b>Frontend Developer</b> - Bangalore - Full time - React, TypeScript</p>'
+    + '<p><b>Security Engineer</b> - Remote - Full time - Pentesting, OWASP, Bug Bounty experience</p>'
+    + '<p><b>Product Manager</b> - Bangalore - Full time - 3+ years B2B SaaS experience</p>'
+    + '<hr>'
+    + '<p>Send your resume to <b>careers@megacorp.com</b></p>',
+
+  "blog":
+    '<h2>MegaCorp Blog</h2>'
+    + '<h3>How We Scaled to 10,000 Customers</h3>'
+    + '<p><i>April 10, 2026</i> - It has been a wild ride from our first 10 beta users to where we are today. Here is what we learned along the way...</p>'
+    + '<h3>Introducing MegaWidget Pro 2.0</h3>'
+    + '<p><i>March 22, 2026</i> - We completely redesigned the dashboard, added real-time collaboration, and improved load times by 60%.</p>'
+    + '<h3>Our Bug Bounty Program is Live!</h3>'
+    + '<p><i>Feb 5, 2026</i> - We believe in security. Starting today, we are inviting ethical hackers to test our platform. Rewards up to $5,000.</p>'
+    + '<h3>Why We Moved to Kubernetes</h3>'
+    + '<p><i>Jan 15, 2026</i> - Our DevOps team shares the migration story and lessons learned.</p>',
+
+  "contact":
+    '<h2>Contact Us</h2>'
+    + '<p><b>General Inquiries:</b> info@megacorp.com</p>'
+    + '<p><b>Sales:</b> sales@megacorp.com</p>'
+    + '<p><b>Support:</b> support@megacorp.com</p>'
+    + '<p><b>Security Issues:</b> security@megacorp.com</p>'
+    + '<p><b>Phone:</b> +91 80 4567 8900</p>'
+    + '<hr>'
+    + '<p><b>Office Address:</b><br>MegaCorp Technologies Pvt. Ltd.<br>4th Floor, Tower B, Prestige Tech Park<br>Marathahalli, Bangalore 560103</p>',
+
+  // directory traversal - each ../ goes up one level
+  // server thinks: /var/www/html/pages/ is where files live
+  // ../ = /var/www/html/
+  // ../../ = /var/www/
+  // ../../../ = /var/
+  // ../../../../ = /
+  // ../../../../etc/passwd = /etc/passwd
+
+  "../":
+    '<h2>Directory listing: /var/www/html/</h2>'
+    + '<pre>'
+    + 'index.html\n'
+    + 'pages/\n'
+    + 'assets/\n'
+    + 'uploads/\n'
+    + '.htaccess\n'
+    + '</pre>'
+    + '<p><i>Hmm... you went up one directory. Try going up more.</i></p>',
+
+  "../../":
+    '<h2>Directory listing: /var/www/</h2>'
+    + '<pre>'
+    + 'html/\n'
+    + 'logs/\n'
+    + 'backups/\n'
+    + '</pre>'
+    + '<p><i>You can see the server folders now. Keep going...</i></p>',
+
+  "../../../":
+    '<h2>Directory listing: /var/</h2>'
+    + '<pre>'
+    + 'www/\n'
+    + 'log/\n'
+    + 'lib/\n'
+    + 'tmp/\n'
+    + '</pre>'
+    + '<p><i>You are deep inside the server file system now.</i></p>',
+
+  "../../../../":
+    '<h2>Directory listing: / (ROOT)</h2>'
+    + '<pre>'
+    + 'bin/\n'
+    + 'etc/\n'
+    + 'home/\n'
+    + 'var/\n'
+    + 'usr/\n'
+    + 'tmp/\n'
+    + 'root/\n'
+    + '</pre>'
+    + '<p><i>This is the root of the entire server. Try reading /etc/passwd...</i></p>',
+
+  "../../../../etc/":
+    '<h2>Directory listing: /etc/</h2>'
+    + '<pre>'
+    + 'passwd\n'
+    + 'shadow\n'
+    + 'hosts\n'
+    + 'nginx/\n'
+    + 'ssh/\n'
+    + 'cron.d/\n'
+    + '</pre>'
+    + '<p><i>Sensitive config files live here. passwd is the juicy one.</i></p>',
+
+  "../../../../etc/passwd":
+    '<h2 class="secret">!! /etc/passwd !!</h2>'
+    + '<pre>'
+    + 'root:x:0:0:root:/root:/bin/bash\n'
+    + 'daemon:x:1:1:daemon:/usr/sbin:/usr/sbin/nologin\n'
+    + 'www-data:x:33:33:www-data:/var/www:/usr/sbin/nologin\n'
+    + 'megacorp-admin:x:1000:1000:Admin:/home/admin:/bin/bash\n'
+    + '\n'
+    + '# admin password: Megacorp@2024!\n'
+    + '</pre>'
+    + '<p class="secret">You just read a file you were NOT supposed to see.</p>'
+    + '<p>Now go back to <a href="?file=home">Home</a> and login with:<br>'
+    + 'Username: <b>megacorp-admin</b><br>'
+    + 'Password: <b>Megacorp@2024!</b></p>'
+};
+
+var params = new URLSearchParams(window.location.search);
+var file = params.get("file") || "home";
+
+if (file.indexOf("etc/passwd") !== -1) foundPassword = true;
+if (localStorage.getItem("foundpw") === "yes") foundPassword = true;
+if (foundPassword) localStorage.setItem("foundpw", "yes");
+
+if (pages[file]) {
+  document.getElementById("content").innerHTML = pages[file];
+} else {
+  document.getElementById("content").innerHTML = "<p>404 - Not Found: " + file + "</p>";
+}
+
+function tryLogin() {
+  var u = document.getElementById("user").value;
+  var p = document.getElementById("pass").value;
+  var msg = document.getElementById("login-msg");
+  if (u === "megacorp-admin" && p === "Megacorp@2024!") {
+    msg.innerHTML = '<span style="color:green;font-size:20px"><b>LOGIN SUCCESS! You hacked MegaCorp!</b></span>';
+  } else if (!foundPassword) {
+    msg.innerHTML = '<span style="color:red">Wrong credentials. Maybe there is a way to find the password...</span>';
+  } else {
+    msg.innerHTML = '<span style="color:red">Wrong credentials. Check the passwd file again carefully.</span>';
+  }
+}
+</script>
+
+</body>
+</html>

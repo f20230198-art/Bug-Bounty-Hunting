@@ -218,6 +218,10 @@ The `--` is a SQL comment — it **ignores everything after it**, including the 
 | `' OR '1'='1` | Another always-true condition |
 | `admin' --` | Logs in as admin, skips password |
 
+### 🎬 Try It Locally
+
+Open [demos/sqli-login/](./demos/sqli-login/) in your browser — a tiny vulnerable login form that shows you the SQL query building live as you type. Great way to build intuition before the lab.
+
 ### 🧪 Core Questions — 3 Questions
 
 > **Do these 3 questions in order. We'll walk through Questions together.**
@@ -362,6 +366,10 @@ Page shows: "You searched for: " ...and runs the script! 💥
 | `<img src=x onerror=alert('XSS')>` | Works when `<script>` is blocked |
 | `<svg onload=alert('XSS')>` | Another bypass technique |
 | `"><script>alert('XSS')</script>` | Breaking out of an HTML attribute |
+
+### 🎬 Try It Locally
+
+Open [demos/xss-search/](./demos/xss-search/) — a vulnerable search box that echoes input via `innerHTML`. Try `<img src=x onerror=alert(1)>` and see the browser render it live.
 
 ### 🧪 Core Questions
 

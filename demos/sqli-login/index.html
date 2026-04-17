@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+
+<h2>Login</h2>
+
+<form onsubmit="doLogin(event)">
+  <p>
+    <label>Username: <input type="text" id="user" oninput="updateQuery()" /></label>
+  </p>
+  <p>
+    <label>Password: <input type="text" id="pass" oninput="updateQuery()" /></label>
+  </p>
+  <p>
+    <button type="submit">Login</button>
+  </p>
+</form>
+
+<p id="msg"></p>
+
+<hr>
+
+<p><strong>Backend query (what the server runs):</strong></p>
+<pre id="query">SELECT * FROM users WHERE username = '' AND password = ''</pre>
+
+<script>
+  function updateQuery() {
+    const user = document.getElementById('user').value;
+    const pass = document.getElementById('pass').value;
+    document.getElementById('query').textContent =
+      `SELECT * FROM users WHERE username = '${user}' AND password = '${pass}'`;
+  }
+
+  function doLogin(e) {
+    e.preventDefault();
+    const user = document.getElementById('user').value;
+    const pass = document.getElementById('pass').value;
+
+    const sqliBypass =
+      user.includes("'--") ||
+      user.includes("' --") ||
+      user.toLowerCase().includes("or 1=1") ||
+      pass.toLowerCase().includes("or 1=1") ||
+      user.includes("'#");
+
+    const msg = document.getElementById('msg');
+
+    if (sqliBypass) {
+      msg.textContent = "Logged in as admin.";
+    } else if (user === 'admin' && pass === 'secret123') {
+      msg.textContent = "Logged in as admin.";
+    } else {
+      msg.textContent = "Invalid username or password.";
+    }
+  }
+</script>
+
+</body>
+</html>

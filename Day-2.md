@@ -6,16 +6,6 @@
 
 ---
 
-## 👋 Opening (say this first!)
-
-> "Hey guys, hope you're all doing well! Quick thing — they announced offline classes, that's exciting, hope to see you all there.
->
-> OK so yesterday we attacked the **client side** — the browser. We injected into SQL queries, we injected JavaScript. But today we're going **deeper**. We're going to attack the **server itself**. These bugs are more serious — they can give you access to the entire server, not just one user's session. And that means **higher bounty payouts**.
->
-> Make sure you have PortSwigger open and ready. Let's get into it."
-
----
-
 ## 🗺️ Today's Roadmap
 
 ```mermaid
@@ -94,7 +84,7 @@ Server reads: /var/www/images/../../../etc/passwd
 
 ### 🎬 Live Demo — Try It Together
 
-> Open [traversal-demo.html](./traversal-demo.html) in your browser. This is a fake "MegaCorp File Server."
+> Open [demos/traversal-megacorp/index.html](./demos/traversal-megacorp/) in your browser. This is a fake "MegaCorp File Server."
 
 **Walk-through:**
 1. Click around the normal files (about.txt, products.txt, contact.txt) — everything looks fine.
@@ -172,6 +162,10 @@ graph LR
 | `&&` | Run second command only if first succeeds |
 | `\|\|` | Run second command only if first fails |
 | `$()` | Execute command inside parentheses first |
+
+### 🎬 Try It Locally
+
+Run the [demos/command-injection/](./demos/command-injection/) Node.js app — it has three endpoints with progressively stronger (and still broken) defenses. Bypass all three to really internalize how filters fail.
 
 ### 🧪 Core Questions
 
