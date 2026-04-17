@@ -56,19 +56,39 @@ If yes → IDOR! You can see User #124's private data 💀
 │                                                                  │
 │   You are User 123                                               │
 │                                                                  │
-│   ┌──────────────────────────────────────────┐                  │
-│   │  Normal request:                         │                  │
-│   │  GET /api/orders/1001    → Your order ✅  │                  │
-│   │                                          │                  │
-│   │  Changed ID:                             │                  │
-│   │  GET /api/orders/1002    → John's order! │  ← IDOR!        │
-│   │  GET /api/orders/1003    → Jane's order! │  ← IDOR!        │
-│   │  GET /api/orders/1004    → Admin's order!│  ← IDOR!        │
-│   └──────────────────────────────────────────┘                  │
+│   ┌──────────────────────────────────────────┐                   │
+│   │  Normal request:                         │                   │
+│   │  GET /api/orders/1001    → Your order    │                   │
+│   │                                          │                   │
+│   │  Changed ID:                             │                   │
+│   │  GET /api/orders/1002    → John's order! │  ← IDOR!          │
+│   │  GET /api/orders/1003    → Jane's order! │  ← IDOR!          │
+│   │  GET /api/orders/1004    → Admin's order!│  ← IDOR!          │
+│   └──────────────────────────────────────────┘                   │
 │                                                                  │
-│   The server never checks: "Does User 123 OWN Order 1002?"      │
+│   The server never checks: "Does User 123 OWN Order 1002?"       │
 │   It just returns whatever ID you ask for.                       │
 └──────────────────────────────────────────────────────────────────┘
+```
+
+```python
+# Bad Implementation
+@app.get("/api/invoices/<id>")
+def get_invoice(id):
+    if not user_logged_in():
+        return 401
+    return db.invoices.find(id)
+
+
+# The correct version
+@app.get("/api/invoices/<id>")
+def get_invoice(id):
+    if not user_logged_in():
+        return 401
+    invoice = db.invoices.find(id)
+    if invoice.owner_id != current_user.id:
+        return 403
+    return invoice
 ```
 
 ### Where to Look for IDOR
@@ -120,8 +140,6 @@ Log in with `wiener:peter`. Go to "My Account" and notice the URL says `?id=wien
 
 ## 🎯 Topic 2: CSRF (Cross-Site Request Forgery) 🟢 Easy
 
-> ⏱️ **~20 min section** — quick theory, one live-ish demo walkthrough, one PortSwigger lab.
-
 ### What Is It?
 
 CSRF tricks a **logged-in victim's browser** into sending an unwanted, state-changing request to a site they're authenticated on — without their knowledge.
@@ -150,7 +168,7 @@ The attacker never sees the response. They don't need to. The damage is done: an
 │      — AND attaches the victim's session cookie automatically!   │
 │                                                                  │
 │   5. bank.com thinks it's a real request from the victim.        │
-│      💀 Money transferred.                                       │
+│      Money transferred.                                          │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
@@ -175,6 +193,21 @@ If even one is false — CSRF usually fails.
 | **Custom headers** | e.g., `X-Requested-With` — can't be set cross-origin without CORS |
 | **Double-submit cookie** | Token sent in cookie AND request body — server compares them |
 
+```html
+<!-- Vulnerable -->
+<form action="https://yourbank.com/transfer" method="POST">
+  <input name="to"     value="attacker_account">
+  <input name="amount" value="50000">
+</form>
+<script>document.forms[0].submit()</script>
+
+<!-- Safe (with CSRF token) -->
+<form action="/transfer" method="POST">
+  <input name="csrf_token" value="xK9mP2...randomstring">
+  <input name="amount" value="50000">
+</form>
+```
+
 ### 🎬 2-Minute Check
 
 Open DevTools on any site you're logged into → Network tab → trigger a "save" or "update" action. Look at the request. If there's no `csrf_token`, no `X-CSRF-Token` header, and the cookie is `SameSite=None` — it's a CSRF candidate.
@@ -197,6 +230,7 @@ Open DevTools on any site you're logged into → Network tab → trigger a "save
   <body>
     <form action="https://YOUR-LAB-URL/my-account/change-email" method="POST">
       <input type="hidden" name="email" value="pwned@evil.com">
+      <input type="submit" value ="Submit Request"/>
     </form>
     <script>document.forms[0].submit();</script>
   </body>
@@ -247,7 +281,7 @@ Signature: (cryptographic verification)     ← Proves it wasn't tampered
 │   Normal Flow:                                                   │
 │   ┌────────┐  login   ┌────────┐  JWT token  ┌────────┐          │
 │   │  You   │ ───────► │ Server │ ──────────► │  You   │          │
-│   │        │          │        │  role:user   │ (user) │         │
+│   │        │          │        │  role:user  │ (user) │          │
 │   └────────┘          └────────┘             └────────┘          │
 │                                                                  │
 │   Attack — Change "none" algorithm:                              │

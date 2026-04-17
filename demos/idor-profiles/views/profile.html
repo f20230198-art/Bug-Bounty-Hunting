@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ProfileHub — My Profile</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #fff; color: #000; max-width: 700px; margin: 40px auto; padding: 0 20px; }
+    h1 { border-bottom: 2px solid #000; padding-bottom: 8px; }
+    .card { border: 1px solid #000; padding: 16px; margin: 20px 0; }
+    label { display: block; margin: 10px 0 4px; font-weight: bold; }
+    input, textarea { width: 100%; padding: 8px; border: 1px solid #000; font-family: monospace; box-sizing: border-box; }
+    textarea { min-height: 70px; resize: vertical; }
+    button { margin-top: 12px; padding: 10px 18px; background: #000; color: #fff; border: none; cursor: pointer; }
+    button:hover { background: #333; }
+    .sec { background: #eee; padding: 10px; border-left: 4px solid #000; font-family: monospace; font-size: 13px; white-space: pre-wrap; }
+    .row { display: flex; justify-content: space-between; align-items: center; }
+    a.logout { color: #000; }
+    .ok { background: #efe; border: 1px solid #0a0; padding: 8px; margin-top: 10px; }
+    .err { background: #fee; border: 1px solid #a00; padding: 8px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<div class="row">
+  <h1 id="hello">My Profile</h1>
+  <a href="#" class="logout" id="logoutLink">Log out</a>
+</div>
+
+<div class="card">
+  <label>User ID (read-only)</label>
+  <input id="uid" readonly />
+
+  <label>Bio</label>
+  <textarea id="bio"></textarea>
+
+  <label>Email</label>
+  <input id="email" />
+
+  <label>New password (leave blank to keep current)</label>
+  <input id="password" type="text" placeholder="(unchanged)" />
+
+  <button id="saveBtn">Save changes</button>
+  <div id="saveMsg"></div>
+</div>
+
+<div class="card">
+  <b>Raw profile JSON (what the server returned):</b>
+  <div id="raw" class="sec"></div>
+</div>
+
+<script>
+let me = null;
+
+async function loadMe() {
+  const r = await fetch('/api/me');
+  if (!r.ok) { window.location.href = '/'; return; }
+  me = await r.json();
+  document.getElementById('hello').textContent = 'My Profile (' + me.username + ')';
+
+  // Fetch *my own* profile by id — this is the request students will inspect
+  const r2 = await fetch('/api/users/' + me.id);
+  const data = await r2.json();
+  document.getElementById('uid').value = data.id;
+  document.getElementById('bio').value = data.bio || '';
+  document.getElementById('email').value = data.email || '';
+  document.getElementById('raw').textContent = JSON.stringify(data, null, 2);
+}
+
+document.getElementById('saveBtn').addEventListener('click', async () => {
+  // The save request also uses /api/users/:id — this is the vulnerable write path
+  const body = {
+    bio: document.getElementById('bio').value,
+    email: document.getElementById('email').value
+  };
+  const pw = document.getElementById('password').value;
+  if (pw) body.password = pw;
+
+  const r = await fetch('/api/users/' + me.id, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body)
+  });
+  const data = await r.json();
+  const msg = document.getElementById('saveMsg');
+  if (r.ok) {
+    msg.className = 'ok';
+    msg.textContent = 'Saved ✓';
+    document.getElementById('password').value = '';
+  } else {
+    msg.className = 'err';
+    msg.textContent = data.error || 'Save failed';
+  }
+});
+
+document.getElementById('logoutLink').addEventListener('click', async (e) => {
+  e.preventDefault();
+  await fetch('/api/logout', { method: 'POST' });
+  window.location.href = '/';
+});
+
+loadMe();
+</script>
+
+</body>
+</html>

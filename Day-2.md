@@ -82,19 +82,17 @@ Server reads: /var/www/images/../../../etc/passwd
 | `....//....//....//etc/passwd` | Bypass basic `../` stripping |
 | `%2e%2e%2f%2e%2e%2f` | URL-encoded version of `../../` |
 
-### 🎬 Live Demo — Try It Together
+### 🎬 Try It Locally
 
-> Open [demos/traversal-megacorp/index.html](./demos/traversal-megacorp/) in your browser. This is a fake "MegaCorp File Server."
+Open [demos/traversal-megacorp/](./demos/traversal-megacorp/) in your browser — a fake "MegaCorp File Server."
 
-**Walk-through:**
 1. Click around the normal files (about.txt, products.txt, contact.txt) — everything looks fine.
-2. Now change the URL path to `../secret` — suddenly you can see internal files!
+2. Change the URL path to `../secret` — suddenly you can see internal files.
 3. Try `../secret/admin-passwords.txt` — you just read the admin passwords.
 4. Try `../../../etc/passwd` — you just read the Linux system file.
 5. Watch the **Server Log** at the bottom — it shows exactly what the server is doing.
 
-> **Ask the class:** "Why did this work? What did the server forget to check?"
-> **Answer:** The server didn't validate whether the file path stays inside the allowed folder.
+The vulnerability exists because the server didn't validate whether the file path stays inside the allowed folder.
 
 ### 🧪 Core Questions
 

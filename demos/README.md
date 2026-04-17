@@ -1,6 +1,6 @@
 # 🧪 Vulnerable Demo Apps
 
-> Four tiny, self-contained vulnerable apps that let you **practice the attacks hands-on, on your own machine** — without any lab server or internet connection.
+> Five tiny, self-contained vulnerable apps that let you **practice the attacks hands-on, on your own machine** — without any lab server or internet connection.
 >
 > Every demo maps directly to a Day 1 or Day 2 topic.
 
@@ -28,9 +28,10 @@ These apps are **intentionally vulnerable**. They are safe to run because:
 | 2 | [xss-search](./xss-search/) | Day 1 | Cross-Site Scripting | Open `index.html` in browser |
 | 3 | [traversal-megacorp](./traversal-megacorp/) | Day 2 | Directory Traversal | Open `index.html` in browser |
 | 4 | [command-injection](./command-injection/) | Day 2 | OS Command Injection | `npm install && node server.js` |
+| 5 | [idor-profiles](./idor-profiles/) | Day 3 | IDOR (Broken Access Control) | `npm install && node server.js` |
 
 The first three are **pure HTML + JS** — zero setup, just double-click the file.
-The fourth is a tiny **Node.js** app to demonstrate real server-side command execution.
+The last two are tiny **Node.js** apps with a real backend so DevTools → Network shows real requests you can intercept and replay.
 
 ---
 
@@ -99,6 +100,18 @@ A real Node.js server that takes your input and runs it via `exec()` — the cla
 **What's unique:** this is the only demo with a **real backend** — you're actually popping shells, not simulating them. The `server.js` is 70 lines; read it when you're done.
 
 👉 [Open command-injection demo →](./command-injection/)
+
+---
+
+## 5️⃣ idor-profiles — IDOR (Broken Access Control)
+
+**Covers:** [Day 3 → IDOR](../Day-3.md#-topic-1-idor-insecure-direct-object-reference--easy)
+
+A tiny profile site (ProfileHub) with three pre-seeded accounts — including an admin at ID 1. Log in as a normal user, intercept your own "save profile" request, **Copy as fetch**, paste in Console, change the ID to the admin's, rewrite the admin's password, and log in as admin.
+
+**What's unique:** this is the "professional" way to demo IDOR — no URL-bar tampering. Students see the exact DevTools → Network → Copy as fetch → Console workflow real hunters use on targets where the ID isn't even in the URL.
+
+👉 [Open idor-profiles demo →](./idor-profiles/)
 
 ---
 
