@@ -28,16 +28,16 @@ Companies invite hackers to **find and report security vulnerabilities** in thei
 │                    HOW BUG BOUNTY WORKS                          │
 │                                                                  │
 │   You (Hacker)          Company              Reward              │
-│   ┌─────────┐          ┌─────────┐          ┌─────────┐        │
-│   │ Find a  │  report  │ Verify  │  valid   │  💰 Get │        │
-│   │  Bug    │ ───────► │ the Bug │ ───────► │  Paid!  │        │
-│   └─────────┘          └─────────┘          └─────────┘        │
+│   ┌─────────┐          ┌─────────┐          ┌─────────┐          │
+│   │ Find a  │  report  │ Verify  │  valid   │   Get   │          │ 
+│   │  Bug    │ ───────► │ the Bug │ ───────► │  Paid!  │          │
+│   └─────────┘          └─────────┘          └─────────┘          │
 │                                                                  │
 │   Real Payouts:                                                  │
-│   • Low severity:     $50 – $500                                │
-│   • Medium severity:  $500 – $2,000                             │
-│   • High severity:    $2,000 – $10,000                          │
-│   • Critical:         $10,000 – $100,000+                       │
+│   • Low severity:     $50 – $500                                 │
+│   • Medium severity:  $500 – $2,000                              │
+│   • High severity:    $2,000 – $10,000                           │
+│   • Critical:         $10,000 – $100,000+                        │
 └──────────────────────────────────────────────────────────────────┘
 ```
 
